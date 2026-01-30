@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include<stdlib.h>
+
+
+struct Node {
+   int data;
+    struct Node *previous;
+    struct Node *next;
+    
+};
+struct Node *head = NULL;
+
+void insertEnd(int value) {
+    struct Node *newNode = (struct Node*)malloc(sizeof
+    (struct Node));
+    newNode->data = value;
+    newNode->next = NULL;
+    newNode->previous = NULL;
+    
+    if(head == NULL) {
+        head = newNode;
+        return;
+        
+    }
+    struct Node *temp = head;
+    while(temp->next !=NULL) {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+    newNode->previous = temp;
+    
+}
+
+void deleteByValue(int value){
+    struct Node *temp = head;
+    while(temp != NULL && temp->data != value)
+    temp = temp->next;
+    
+    if(temp == NULL)
+    return;
+    
+    if(temp == head)
+    head = temp->next;
+    
+    if(temp->next !=NULL)
+    temp->next->previous = temp->previous;
+    
+    if(temp->previous !=NULL)
+    temp->previous->next = temp->next;
+    
+    free(temp);
+
+}   
+void display(){
+    struct Node *temp = head;
+    while(temp != NULL) {
+        printf("%d", temp->data);
+        if(temp->next!= NULL)
+        printf("<-->");
+        temp = temp->next;
+    }
+    printf(" <-> NULL");
+}
+
+int main() {
+    insertEnd(11);
+    insertEnd(22);
+    insertEnd(33);
+    insertEnd(44);
+    
+    deleteByValue(33);
+    
+    display();
+    return 0;
+}
