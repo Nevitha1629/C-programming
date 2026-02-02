@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include<stdlib.h>
+struct contact {
+    long int number;
+
+    struct contact *next;//structre nesting
+
+};
+int main() {
+    
+    struct contact *head, *temp, *newcontact;
+    
+    head = malloc(sizeof(struct contact));
+    head->number = 9944054068;
+    
+    head->next = malloc(sizeof(struct contact));
+    head->next->number = 9487176095;
+    
+     
+      head->next->next = malloc(sizeof(struct contact));
+      head->next->next->number = 9600856797;
+      head->next->next->next = NULL;
+      
+      //inserting at middle
+      newcontact = malloc(sizeof(struct contact));
+      newcontact->number = 8300884068;
+      
+      temp = head;
+      while(temp !=NULL && temp->number !=9487176095)
+      temp = temp->next;
+      
+      if(temp!=NULL)
+      newcontact->next = temp->next;
+      temp->next = newcontact;
+   //output
+   temp=head;
+   while(temp!=NULL){
+       printf("%ld \n",temp->number);
+       temp = temp->next;
+       
+   }
+       printf("Finish \n");
+      
+      long int deletenumber = 8300884068;
+      temp = head;
+      while(temp!=NULL){
+          temp = temp->next;
+      }
+      printf("After deleting:");
+      temp = head;
+      while(temp!=NULL){
+      printf("%ld \n", temp->number);
+      temp = temp->next;
+      }
+      printf("Finish \n");
+      return 0;
+     
+   
+ 
+}
